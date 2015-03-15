@@ -41,7 +41,7 @@ There are two steps:
         <<echo=FALSE,results='asis'>>=
         library(stanhl)
         stanhl_latex()
-        @ 
+        @
 
 2. Write your Stan model, store it to a variable (e.g. to call with
 `stan(model_code=x, ...`), and then use:
@@ -56,10 +56,10 @@ There are two steps:
 		}
         "
         stanhl(m)
-        
-        @ 
 
-Then, in another block call `stan()`, do other stuff. etc.
+        @
+
+Then, in another block call `stan()`, do other stuff, etc.
 
 ## Using `stanhl` in RMarkdown files
 
@@ -70,7 +70,7 @@ but `stanhl_html()` should work as a replacement for `stanhl_latex()`. If it
 doesn't, feel free to submit a pull request. Below is the basic idea.
 
 The header:
-     
+
     ```{r,echo=FALSE,results='asis'}
     library(stanhl)
     stanhl_html()
@@ -114,7 +114,7 @@ You can also highlight a model directly from a `.stan` file:
     stanhl_file(mesquite_file)
 
 	# Then run your Stan model directly from file with something like:
-	# stan(mesquite_file, data=mesquite_data)
+	# fit <- stan(mesquite_file, data=mesquite_data)
 
 ## Styles
 
@@ -123,7 +123,7 @@ highlighting with:
 
      > stanhl_styles() # get available style list (depends on Pygments plugins)
      [1] "monokai"  "manni"    "rrt"      "perldoc"  "borland"  "colorful"
-     [7] "default"  "murphy"   "vs"       "trac"     "tango"    "fruity"  
+     [7] "default"  "murphy"   "vs"       "trac"     "tango"    "fruity"
     [13] "autumn"   "bw"       "emacs"    "vim"      "pastie"   "friendly"
     [19] "native"
     > stanhl_opts$set(style="emacs")
@@ -132,9 +132,11 @@ See the vignette for these styles rendered.
 
 ## Todo
 
-I wrote this especially for Stan, but it might be worthwhile to tear out the
-backend and throw it in a pygmentr package, and then use pygmentr to build up
-stanhl. If you want to help out, let me know. For now, there are some
-Stan-specific features I want, e.g. including Stan models from file, so this
-package is worth it.
+I interfaced Pygments with R to create syntax highlighting for Stan, but
+afterwards thought it might be useful to have a more general R-Pygments
+interface. This interface is now the
+[pygmentr](https://github.com/vsbuffalo/pygmentr) package; I am debating
+whether to merge these two together, or just keep stanhl separate. For now,
+there are some Stan-specific features I want, e.g. including Stan models from
+file, so this package is worth it.
 
