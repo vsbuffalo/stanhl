@@ -63,6 +63,8 @@ Then, in another block call `stan()`, do other stuff. etc.
 
 ## Using `stanhl` in RMarkdown files
 
+![A screenshot of stanhl syntax highlighting in an HTML document](https://raw.githubusercontent.com/vsbuffalo/stanhl/master/inst/extdata/example_html.png)
+
 I haven't extensively tested Markdown support (swamped for the next few weeks),
 but `stanhl_html()` should work as a replacement for `stanhl_latex()`. If it
 doesn't, feel free to submit a pull request. Below is the basic idea.
@@ -102,9 +104,22 @@ The meat and potatoes (or tofu and eggplant):
     stanhl(m)
 
     ```
+
+## Highlighting Stan Models from File
+
+You can also highlight a model directly from a `.stan` file:
+
+    mesquite_file <- system.file("inst", "extdata", "mesquite_volume.stan",
+                                 package="stanhl")
+    stanhl_file(mesquite_file)
+
+	# Then run your Stan model directly from file with something like:
+	# stan(mesquite_file, data=mesquite_data)
+
 ## Styles
 
-You can change Pygments [style](http://pygments.org/docs/styles/) with:
+You can change Pygments [style](http://pygments.org/docs/styles/) used in syntax
+highlighting with:
 
      > stanhl_styles() # get available style list (depends on Pygments plugins)
      [1] "monokai"  "manni"    "rrt"      "perldoc"  "borland"  "colorful"
@@ -114,3 +129,12 @@ You can change Pygments [style](http://pygments.org/docs/styles/) with:
     > stanhl_opts$set(style="emacs")
 
 See the vignette for these styles rendered.
+
+## Todo
+
+I wrote this especially for Stan, but it might be worthwhile to tear out the
+backend and throw it in a pygmentr package, and then use pygmentr to build up
+stanhl. If you want to help out, let me know. For now, there are some
+Stan-specific features I want, e.g. including Stan models from file, so this
+package is worth it.
+

@@ -6,6 +6,11 @@
 \usage{
 pipe_in(cmd, input = NULL)
 }
+\arguments{
+\item{cmd}{command to execute with \code{system(....)}.}
+
+\item{input}{string input to be passed through standard input to \code{cmd}.}
+}
 \description{
 Build and run command with system(..., intern=TRUE)
 }

@@ -16,6 +16,8 @@ stanhl_styles <- function() {
 }
 
 #' Is the supplied syntax a vaild syntax?
+#'
+#' @param style a style to validate that it's available.
 check_valid_style <- function(style) {
   if (!(style %in% stanhl_styles()))
     stop(sprintf("'%s' is not an available Pygments style.", style)) 

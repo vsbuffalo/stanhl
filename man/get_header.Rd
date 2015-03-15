@@ -6,6 +6,9 @@
 \usage{
 get_header(formatter = c("latex", "html"))
 }
+\arguments{
+\item{formatter}{Pygments formatter to use; either "latex" or "html".}
+}
 \description{
 Create Stan highlight header for LaTeX or HTML
 }

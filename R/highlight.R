@@ -6,6 +6,9 @@ has_pygments <- function() {
 }
 
 #' Build and run command with system(..., intern=TRUE)
+#'
+#' @param cmd command to execute with \code{system(....)}.
+#' @param input string input to be passed through standard input to \code{cmd}.
 pipe_in <- function(cmd, input=NULL) {
   out <- system(cmd, input=input, intern=TRUE)
   paste(out, sep="\n", collapse="\n")
@@ -37,6 +40,7 @@ stanhl_html <- function() {
 
 #' Create Stan highlight header for LaTeX or HTML
 #'
+#' @param formatter Pygments formatter to use; either "latex" or "html".
 get_header <- function(formatter=c("latex", "html")) {
   has_pygments()
   formatter <- match.arg(formatter)
@@ -58,4 +62,25 @@ stanhl <- function(x) {
   cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan', formatter),
               input=x))
 }
+
+#' Highlight Stan model code from file
+#'
+#' Uses Python Pygements to highly Stan model code from a file.
+#'
+#' @param file a filename to a Stan model
+#'
+#' @export
+stanhl_file <- function(file) {
+  if (!is.character(file) || length(file) > 1)
+      stop("file must be a single string filename.")
+  has_pygments()
+  formatter <- stanhl_opts$get("formatter")
+  cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan "%s"', formatter, file)))
+}
+
+
+
+
+
+
 
