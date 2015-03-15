@@ -25,7 +25,7 @@ There are two steps:
 2. Write your Stan model, store it to a variable (e.g. to call with
 `stan(model_code=x, ...`), and then use:
 
-        <<echo=FALSE,results="asis">>=
+        <<echo=FALSE,results='asis'>>=
         library(stanhl)
         m <- "
 		data {
