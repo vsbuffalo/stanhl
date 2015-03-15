@@ -15,6 +15,12 @@ You need [http://pygments.org](Pygments) installed. The following should work:
     $ pygmentize -V
     Pygments version 1.6, (c) 2006-2013 by Georg Brandl.
 
+If you don't have Pygments installed, just install with the
+[Python Package Index](https://pypi.python.org/pypi/Pygments):
+
+    $ pip install Pygments
+
+
 ## Installation
 
 Using the terrific [devtools](https://github.com/hadley/devtools) package, you
@@ -47,7 +53,7 @@ There are two steps:
 		  // more stan stuff
 		}
         "
-        cat(stanhl(m))
+        stanhl(m)
         
         @ 
 
@@ -91,7 +97,7 @@ The meat and potatoes (or tofu and eggplant):
       log_weight ~ normal(beta[1] + beta[2] * log_canopy_volume, sigma);
     }
     "
-    cat(stanhl(m))
+    stanhl(m)
 
     ```
 
