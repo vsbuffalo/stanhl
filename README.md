@@ -20,7 +20,6 @@ If you don't have Pygments installed, just install with the
 
     $ pip install Pygments
 
-
 ## Installation
 
 Using the terrific [devtools](https://github.com/hadley/devtools) package, you
@@ -38,6 +37,7 @@ There are two steps:
 
         \usepackage{fancyvrb}
         \usepackage{color}
+
         <<echo=FALSE,results='asis'>>=
         library(stanhl)
         stanhl_latex()
@@ -102,11 +102,15 @@ The meat and potatoes (or tofu and eggplant):
     stanhl(m)
 
     ```
+## Styles
 
+You can change Pygments [style](http://pygments.org/docs/styles/) with:
 
+     > stanhl_styles() # get available style list (depends on Pygments plugins)
+     [1] "monokai"  "manni"    "rrt"      "perldoc"  "borland"  "colorful"
+     [7] "default"  "murphy"   "vs"       "trac"     "tango"    "fruity"  
+    [13] "autumn"   "bw"       "emacs"    "vim"      "pastie"   "friendly"
+    [19] "native"
+    > stanhl_opts$set(style="emacs")
 
-
-
-
-
-
+See the vignette for these styles rendered.

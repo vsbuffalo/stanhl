@@ -1,0 +1,65 @@
+%\VignetteIndexEntry{Using stanhl for syntax highlighting Stan models in knitr}
+%\VignettePackage{stanhl}
+%\VignetteEngine{knitr::knitr}
+
+% To compile this document
+% library('knitr'); rm(list=ls()); knit('stanhl.Rnw')
+
+\documentclass[12pt]{article}
+\usepackage{fancyvrb}
+\usepackage{color}
+
+\author{Vince Buffalo\\\small{Population Biology Graduate Group}\\\small{Center
+    for Population Biology, UC Davis}}
+
+\title{Stan model syntax highlighting in knitr}
+
+\begin{document}
+
+\maketitle
+
+\section*{Styles}
+
+Below are some styles available from Pygments. The exact styles available depend
+on the Pygments plugins on your system. See http://pygments.org/docs/styles/ for
+more information. Note that some of the styles below are meant for a darker
+background, so some text may not be visible.
+
+<<echo=FALSE,results='asis'>>=
+library(stanhl)
+m <- "
+data {
+  int<lower=0> N;
+  vector[N] weight;
+  vector[N] diam1;
+  vector[N] diam2;
+  vector[N] canopy_height;
+}
+transformed data {
+  vector[N] log_weight;
+  vector[N] log_canopy_volume;
+  log_weight        <- log(weight);
+  log_canopy_volume <- log(diam1 .* diam2 .* canopy_height);
+}
+parameters {
+  vector[2] beta;
+  real<lower=0> sigma;
+}
+model {
+  log_weight ~ normal(beta[1] + beta[2] * log_canopy_volume, sigma);
+}
+"
+for (x in stanhl_styles()) {
+  cat(sprintf("\n\\subsection*{%s}", x))
+  cat("\n{\n")
+  stanhl_opts$set(style=x)
+  stanhl_latex()
+  stanhl(m)
+  cat("\n}\n")
+}
+
+@ 
+
+\end{document}
+
+

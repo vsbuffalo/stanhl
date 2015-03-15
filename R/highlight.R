@@ -16,7 +16,7 @@ pipe_in <- function(cmd, input=NULL) {
 #' @export
 stanhl_latex <- function() {
   has_pygments()
-  stanhl_opts$set("formatter", "latex")
+  stanhl_opts$set(formatter="latex")
   cat(get_header("latex"))
 }
 
@@ -25,7 +25,7 @@ stanhl_latex <- function() {
 #' @export
 stanhl_html <- function() {
   has_pygments()
-  stanhl_opts$set("formatter", "html")
+  stanhl_opts$set(formatter="html")
   style_tmp = '
 <style type="text/css">
 /* automatically generated with Pygments */
