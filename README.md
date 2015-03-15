@@ -47,7 +47,7 @@ There are two steps:
 		  // more stan stuff
 		}
         "
-        stanhl(m)
+        cat(stanhl(m))
         
         @ 
 
