@@ -24,7 +24,7 @@ can install `stanhl` with:
 
 If you don't have `devtools` installed, use `install.packages('devtools')` first.
 
-## Using `stanhl` in LaTeX files
+## Using `stanhl` in LaTeX (Rnw) files
 
 There are two steps:
 
@@ -53,11 +53,47 @@ There are two steps:
 
 Then, in another block call `stan()`, do other stuff. etc.
 
-## Markdown support
+## Using `stanhl` in RMarkdown files
 
 I haven't extensively tested Markdown support (swamped for the next few weeks),
 but `stanhl_html()` should work as a replacement for `stanhl_latex()`. If it
-doesn't, feel free to submit a pull request.
+doesn't, feel free to submit a pull request. Below is the basic idea.
+
+The header:
+     
+    ```{r,echo=FALSE,results='asis'}
+    library(stanhl)
+    stanhl_html()
+    ```
+
+The meat and potatoes (or tofu and eggplant):
+
+    ```{r,echo=FALSE,results='asis'}
+    m <- "
+    data {
+      int<lower=0> N;
+      vector[N] weight;
+      vector[N] diam1;
+      vector[N] diam2;
+      vector[N] canopy_height;
+    }
+    transformed data {
+      vector[N] log_weight;
+      vector[N] log_canopy_volume;
+      log_weight        <- log(weight);
+      log_canopy_volume <- log(diam1 .* diam2 .* canopy_height);
+    }
+    parameters {
+      vector[2] beta;
+      real<lower=0> sigma;
+    }
+    model {
+      log_weight ~ normal(beta[1] + beta[2] * log_canopy_volume, sigma);
+    }
+    "
+    cat(stanhl(m))
+
+    ```
 
 
 
