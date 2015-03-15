@@ -15,6 +15,15 @@ You need [http://pygments.org](Pygments) installed. The following should work:
     $ pygmentize -V
     Pygments version 1.6, (c) 2006-2013 by Georg Brandl.
 
+## Installation
+
+Using the terrific [devtools](https://github.com/hadley/devtools) package, you
+can install `stanhl` with:
+
+    install_github('vsbuffalo/stanhl')
+
+If you don't have `devtools` installed, use `install.packages('devtools')` first.
+
 ## Using `stanhl` in LaTeX files
 
 There are two steps:
