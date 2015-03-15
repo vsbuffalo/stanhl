@@ -4,9 +4,10 @@
 
 
 I needed a simple hack to highlight [Stan](http://mc-stan.org/) syntax in
-[knitr](http://yihui.name/knitr/) files for a course I'm taking — `stanhl` is
-that hack. It's quick and dirty (e.g. this took me thirty minutes to write), but
-I thought I'd share before polishing it.
+[knitr](http://yihui.name/knitr/) files for [a course I'm
+taking](http://xcelab.net/rm/statistical-rethinking/) — `stanhl` is that hack.
+It's quick and dirty (e.g. this took me thirty minutes to write), but I thought
+I'd share before polishing it.
 
 ## Requirements
 
