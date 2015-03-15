@@ -31,6 +31,7 @@ There are two steps:
 1. Include the following in your LaTeX header:
 
         <<echo=FALSE,results='asis'>>=
+        library(stanhl)
         stanhl_latex()
         @ 
 
@@ -38,7 +39,6 @@ There are two steps:
 `stan(model_code=x, ...`), and then use:
 
         <<echo=FALSE,results='asis'>>=
-        library(stanhl)
         m <- "
 		data {
 		  // stan stuff
@@ -55,8 +55,9 @@ Then, in another block call `stan()`, do other stuff. etc.
 
 ## Markdown support
 
-I haven't test Markdown support (swamped for the next few weeks), but
-`stanhl_html()` should work. If it doesn't, feel free to submit a pull request.
+I haven't extensively tested Markdown support (swamped for the next few weeks),
+but `stanhl_html()` should work as a replacement for `stanhl_latex()`. If it
+doesn't, feel free to submit a pull request.
 
 
 

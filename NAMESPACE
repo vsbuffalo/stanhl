@@ -3,3 +3,4 @@
 export(stanhl)
 export(stanhl_html)
 export(stanhl_latex)
+export(stanhl_opts)

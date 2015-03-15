@@ -2,13 +2,11 @@
 % Please edit documentation in R/highlight.R
 \name{pipe_in}
 \alias{pipe_in}
-\title{Build and run command with system(..., intern=TRUE)
-(functions like sprintf())}
+\title{Build and run command with system(..., intern=TRUE)}
 \usage{
 pipe_in(cmd, input = NULL)
 }
 \description{
 Build and run command with system(..., intern=TRUE)
-(functions like sprintf())
 }
 

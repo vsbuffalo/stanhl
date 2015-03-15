@@ -1,4 +1,17 @@
 
+new_defaults <- function(opts=list()) {
+  opts$get <- function(name) return(opts[[name]])
+  # simple, but there's only one option!
+  opts$set <- function(name, value) { opts[[name]] <<- value } 
+  opts$set("formatter", "latex")
+  return(opts)
+}
+
+#' Global options for stanhl
+#'
+#' @export
+stanhl_opts <- new_defaults()
+
 has_pygments <- function() {
   exit_status <- system("pygmentize -V", ignore.stdout=TRUE, ignore.stderr=TRUE)
   if (exit_status != 0)
@@ -7,7 +20,6 @@ has_pygments <- function() {
 }
 
 #' Build and run command with system(..., intern=TRUE)
-#' (functions like sprintf())
 pipe_in <- function(cmd, input=NULL) {
   out <- system(cmd, input=input, intern=TRUE)
   paste(out, sep="\n", collapse="\n")
@@ -18,7 +30,8 @@ pipe_in <- function(cmd, input=NULL) {
 #' @export
 stanhl_latex <- function() {
   has_pygments()
-  use_stanhl("latex")
+  stanhl_opts$set("formatter", "latex")
+  cat(get_header("latex"))
 }
 
 #' Setup Stan syntax highlighting for HTML files
@@ -26,16 +39,22 @@ stanhl_latex <- function() {
 #' @export
 stanhl_html <- function() {
   has_pygments()
-  use_stanhl("html")
+  stanhl_opts$set("formatter", "html")
+  style_tmp = '
+<style type="text/css">
+/* automatically generated with Pygments */
+%s
+</style>'
+  cat(sprintf(style_tmp, get_header("html")))
 }
 
 
-#' Initiate Stan highlight header for LaTeX
+#' Create Stan highlight header for LaTeX or HTML
 #'
-use_stanhl <- function(formatter=c("latex", "html")) {
+get_header <- function(formatter=c("latex", "html")) {
   has_pygments()
   formatter <- match.arg(formatter)
-  cat(pipe_in(cmd=sprintf('pygmentize -S default -f "%s"', formatter)))
+  pipe_in(cmd=sprintf('pygmentize -S default -f "%s"', formatter))
 }
 
 
@@ -44,13 +63,17 @@ use_stanhl <- function(formatter=c("latex", "html")) {
 #' Uses Python Pygements to highly Stan model code.
 #'
 #' @param x character model specification
-#' @param formatter either "latex" or "html"; the format of output
 #'
 #' @export
-stanhl <- function(x, formatter=c("latex", "html")) {
+stanhl <- function(x) {
   has_pygments()
-  formatter <- match.arg(formatter)
+  formatter <- stanhl_opts$get("formatter")
   cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan', formatter), input=x))
 }
+
+
+
+
+
 
 

@@ -4,12 +4,10 @@
 \alias{stanhl}
 \title{Highlight Stan model code}
 \usage{
-stanhl(x, formatter = c("latex", "html"))
+stanhl(x)
 }
 \arguments{
 \item{x}{character model specification}
-
-\item{formatter}{either "latex" or "html"; the format of output}
 }
 \description{
 Uses Python Pygements to highly Stan model code.
