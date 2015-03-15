@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{color}
+\hypersetup{
+colorlinks=true
+}
+
+<<echo=FALSE,results='asis'>>=
+stan_latex()
+@ 
+
+
+
+\title{Example highlighted Stan model using \texttt{stanhl}}
+\author{Vince Buffalo}
+
+\begin{document}
+\maketitle
+
+
+<<echo=FALSE,results="asis">>=
+
+library(stanhl)
+m <- "
+data {
+  int<lower=0> N;
+  vector[N] weight;
+  vector[N] diam1;
+  vector[N] diam2;
+  vector[N] canopy_height;
+}
+transformed data {
+  vector[N] log_weight;
+  vector[N] log_canopy_volume;
+  log_weight        <- log(weight);
+  log_canopy_volume <- log(diam1 .* diam2 .* canopy_height);
+}
+parameters {
+  vector[2] beta;
+  real<lower=0> sigma;
+}
+model {
+  log_weight ~ normal(beta[1] + beta[2] * log_canopy_volume, sigma);
+}
+"
+cat(stanhl(m))
+
+@ 
+
+
+
+\end{document}
+
