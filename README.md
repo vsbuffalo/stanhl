@@ -22,7 +22,7 @@ There are two steps:
 1. Include the following in your LaTeX header:
 
         <<echo=FALSE,results='asis'>>=
-        stan_latex()
+        stanhl_latex()
         @ 
 
 2. Write your Stan model, store it to a variable (e.g. to call with
@@ -47,7 +47,7 @@ Then, in another block call `stan()`, do other stuff. etc.
 ## Markdown support
 
 I haven't test Markdown support (swamped for the next few weeks), but
-`stan_html()` should work. If it doesn't, feel free to submit a pull request.
+`stanhl_html()` should work. If it doesn't, feel free to submit a pull request.
 
 
 

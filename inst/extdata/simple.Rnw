@@ -11,7 +11,7 @@ colorlinks=true
 }
 
 <<echo=FALSE,results='asis'>>=
-stan_latex()
+stanhl_latex()
 @ 
 
 

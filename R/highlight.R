@@ -16,7 +16,7 @@ pipe_in <- function(cmd, input=NULL) {
 #' Setup Stan syntax highlighting for LaTeX files
 #'
 #' @export
-stan_latex <- function() {
+stanhl_latex <- function() {
   has_pygments()
   use_stanhl("latex")
 }
@@ -24,7 +24,7 @@ stan_latex <- function() {
 #' Setup Stan syntax highlighting for HTML files
 #'
 #' @export
-stan_html <- function() {
+stanhl_html <- function() {
   has_pygments()
   use_stanhl("html")
 }
