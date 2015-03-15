@@ -1,4 +1,4 @@
-# Stanhl — Syntax Highlighting in knitr
+# Stanhl — Stan Syntax Highlighting in knitr
 
 ![A screenshot of stanhl syntax highlighting in a LaTeX document](https://raw.githubusercontent.com/vsbuffalo/stanhl/master/inst/extdata/example.png)
 
