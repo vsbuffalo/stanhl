@@ -1,5 +1,8 @@
 # Stanhl — Syntax Highlighting in knitr
 
+![A screenshot of stanhl syntax highlighting in a LaTeX document](https://raw.githubusercontent.com/vsbuffalo/stanhl/master/inst/extdata/example.png)
+
+
 I needed a simple hack to highly syntax in [knitr](http://yihui.name/knitr/)
 files for a course I'm taking — `stanhl` is that hack. It's quick and dirty
 (e.g. this took me thirty minutes to write), but I thought I'd share before
@@ -43,8 +46,8 @@ Then, in another block call `stan()`, do other stuff. etc.
 
 ## Markdown support
 
-I haven't test Markdown support (no time for this), but `stan_html()` should
-work. If it doesn't, feel free to submit a pull request.
+I haven't test Markdown support (swamped for the next few weeks), but
+`stan_html()` should work. If it doesn't, feel free to submit a pull request.
 
 
 
