@@ -1,17 +1,3 @@
-
-new_defaults <- function(opts=list()) {
-  opts$get <- function(name) return(opts[[name]])
-  # simple, but there's only one option!
-  opts$set <- function(name, value) { opts[[name]] <<- value } 
-  opts$set("formatter", "latex")
-  return(opts)
-}
-
-#' Global options for stanhl
-#'
-#' @export
-stanhl_opts <- new_defaults()
-
 has_pygments <- function() {
   exit_status <- system("pygmentize -V", ignore.stdout=TRUE, ignore.stderr=TRUE)
   if (exit_status != 0)
@@ -54,7 +40,8 @@ stanhl_html <- function() {
 get_header <- function(formatter=c("latex", "html")) {
   has_pygments()
   formatter <- match.arg(formatter)
-  pipe_in(cmd=sprintf('pygmentize -S default -f "%s"', formatter))
+  style <- stanhl_opts$get("style")
+  pipe_in(cmd=sprintf('pygmentize -S "%s" -f "%s"', style, formatter))
 }
 
 
@@ -62,18 +49,13 @@ get_header <- function(formatter=c("latex", "html")) {
 #'
 #' Uses Python Pygements to highly Stan model code.
 #'
-#' @param x character model specification
+#' @param x character model specification.
 #'
 #' @export
 stanhl <- function(x) {
   has_pygments()
   formatter <- stanhl_opts$get("formatter")
-  cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan', formatter), input=x))
+  cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan', formatter),
+              input=x))
 }
-
-
-
-
-
-
 

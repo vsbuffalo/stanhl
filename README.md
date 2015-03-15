@@ -36,6 +36,8 @@ There are two steps:
 
 1. Include the following in your LaTeX header:
 
+        \usepackage{fancyvrb}
+        \usepackage{color}
         <<echo=FALSE,results='asis'>>=
         library(stanhl)
         stanhl_latex()
