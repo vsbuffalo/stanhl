@@ -1,4 +1,10 @@
 
+has_pygments <- function() {
+  exit_status <- system("pygmentize -V", ignore.stdout=TRUE, ignore.stderr=TRUE)
+  if (exit_status != 0)
+    stop("Pygments 'pygmentize' not found - have you installed Pygments?")
+  invisible(exit_status == 0)
+}
 
 #' Build and run command with system(..., intern=TRUE)
 #' (functions like sprintf())
@@ -11,6 +17,7 @@ pipe_in <- function(cmd, input=NULL) {
 #'
 #' @export
 stan_latex <- function() {
+  has_pygments()
   use_stanhl("latex")
 }
 
@@ -18,6 +25,7 @@ stan_latex <- function() {
 #'
 #' @export
 stan_html <- function() {
+  has_pygments()
   use_stanhl("html")
 }
 
@@ -25,6 +33,7 @@ stan_html <- function() {
 #' Initiate Stan highlight header for LaTeX
 #'
 use_stanhl <- function(formatter=c("latex", "html")) {
+  has_pygments()
   formatter <- match.arg(formatter)
   cat(pipe_in(cmd=sprintf('pygmentize -S default -f "%s"', formatter)))
 }
@@ -39,6 +48,7 @@ use_stanhl <- function(formatter=c("latex", "html")) {
 #'
 #' @export
 stanhl <- function(x, formatter=c("latex", "html")) {
+  has_pygments()
   formatter <- match.arg(formatter)
   cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan', formatter), input=x))
 }
