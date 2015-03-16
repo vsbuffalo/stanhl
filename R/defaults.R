@@ -34,8 +34,8 @@ new_defaults <- function(opts=list()) {
       opts$validators[[name]](dots[[name]]) # validation for some options
     opts[names(dots)] <<- dots
   }
-  opts$set("formatter", "latex")
-  opts$set("style", "default")
+  opts$set(formatter="latex")
+  opts$set(style="default")
   return(opts)
 }
 
