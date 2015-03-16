@@ -1,13 +1,11 @@
 # Example highlighted Stan model using `stanhl`
 
 
+
+
 ```{r,echo=FALSE,results='asis'}
 library(stanhl)
-stanhl_html()
-```
 
-
-```{r,echo=FALSE,results='asis'}
 m <- "
 data {
   int<lower=0> N;

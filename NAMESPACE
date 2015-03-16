@@ -2,7 +2,5 @@
 
 export(stanhl)
 export(stanhl_file)
-export(stanhl_html)
-export(stanhl_latex)
 export(stanhl_opts)
 export(stanhl_styles)

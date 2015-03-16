@@ -36,6 +36,7 @@ new_defaults <- function(opts=list()) {
   }
   opts$set(formatter="latex")
   opts$set(style="default")
+  opts$set(rmarkdown_css=NULL)
   return(opts)
 }
 

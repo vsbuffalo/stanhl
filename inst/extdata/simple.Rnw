@@ -10,12 +10,6 @@
 colorlinks=true
 }
 
-<<echo=FALSE,results='asis'>>=
-stanhl_latex()
-@ 
-
-
-
 \title{Example highlighted Stan model using \texttt{stanhl}}
 \author{Vince Buffalo}
 
@@ -26,6 +20,7 @@ stanhl_latex()
 <<echo=FALSE,results="asis">>=
 
 library(stanhl)
+
 m <- "
 data {
   int<lower=0> N;

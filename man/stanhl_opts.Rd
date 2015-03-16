@@ -8,13 +8,13 @@
  $ validators:List of 1
   ..$ style:function (style)  
   .. ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 21 22 24 1 22 1 21 24
-  .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff8fb869060> 
+  .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff17c8ce030> 
  $ get       :function (name)  
   ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 28 15 28 49 15 49 28 28
-  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff8fb869060> 
+  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff17c8ce030> 
  $ set       :function (...)  
   ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 30 15 36 3 15 3 30 36
-  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff8fb869060> 
+  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff17c8ce030> 
  $ formatter : chr "latex"
  $ style     : chr "default"
 }}
