@@ -6,3 +6,4 @@ Description: Uses Pygments to highly Stan model code in LaTeX or HTML
 Depends: R (>= 3.1.2)
 License: BSD
 LazyData: true
+Collate: stanhl-package.R utils.R defaults.R highlight.R zzz.R

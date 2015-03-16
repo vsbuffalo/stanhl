@@ -4,17 +4,19 @@
 \name{stanhl_opts}
 \alias{stanhl_opts}
 \title{Global options for stanhl}
-\format{\preformatted{List of 3
+\format{\preformatted{List of 5
  $ validators:List of 1
   ..$ style:function (style)  
   .. ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 21 22 24 1 22 1 21 24
-  .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7f9c9d0291c8> 
+  .. .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff8fb869060> 
  $ get       :function (name)  
   ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 28 15 28 49 15 49 28 28
-  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7f9c9d0291c8> 
+  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff8fb869060> 
  $ set       :function (...)  
   ..- attr(*, "srcref")=Class 'srcref'  atomic [1:8] 30 15 36 3 15 3 30 36
-  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7f9c9d0291c8> 
+  .. .. ..- attr(*, "srcfile")=Classes 'srcfilecopy', 'srcfile' <environment: 0x7ff8fb869060> 
+ $ formatter : chr "latex"
+ $ style     : chr "default"
 }}
 \usage{
 stanhl_opts
