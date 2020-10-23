@@ -1,143 +1,43 @@
-# Stanhl — Stan Syntax Highlighting in knitr
+# Stanhl - Stan syntax highlighting in RMarkdown
 
-![A screenshot of stanhl syntax highlighting in a LaTeX document](https://raw.githubusercontent.com/vsbuffalo/stanhl/master/inst/extdata/example.png)
+![A screenshot of stanhl syntax highlighting in a LaTeX
+document](https://raw.githubusercontent.com/jr-packages/stanhl/master/inst/extdata/example.png)
 
+Add syntax highlighting to stan code chunks in RMarkdown for `pdf` output. 
 
-I needed a simple hack to highlight [Stan](http://mc-stan.org/) syntax in
-[knitr](http://yihui.name/knitr/) files for [a course I'm
-taking](http://xcelab.net/rm/statistical-rethinking/) — `stanhl` is that hack.
-It's quick and dirty (e.g. this took me thirty minutes to write), but I thought
-I'd share before polishing it.
-
+---
 ## Requirements
 
-You need [http://pygments.org](Pygments) installed. The following should work:
+1. [Pygments](https://pygments.org/download/)
+2. [Pandoc 2.x](https://github.com/jgm/pandoc/releases/tag/2.11.0.2) (currently
+   shipped with the RStudio preview version)
 
-    $ pygmentize -V
-    Pygments version 1.6, (c) 2006-2013 by Georg Brandl.
+---
+## Installing
 
-If you don't have Pygments installed, just install with the
-[Python Package Index](https://pypi.python.org/pypi/Pygments):
+You can install this package as:
+```r
+install.packages('devtools')
+install_github('jr-packages/stanhl')
+```
 
-    $ pip install Pygments
+---
+## Usage
 
-## Installation
+This package is intended to provide syntax highlighting for RMarkdown documents
+which are targeting a _pdf_ output. That is, this package does _not_ support
+html output in its current format.
 
-Using the terrific [devtools](https://github.com/hadley/devtools) package, you
-can install `stanhl` with:
+This
+[MWE](https://github.com/jr-packages/stanhl/blob/master/inst/extdata/mwe.Rmd)
+represents a full working example. But in summary:
 
-    install_github('vsbuffalo/stanhl')
+1. To knit your document to pdf there are a few LaTeX packages which must be
+   included (either in `header-includes` or `extra-dependencies`). These are
+   the `fancyvrb`, `framed` and `etoolbox` packages.
 
-If you don't have `devtools` installed, use `install.packages('devtools')` first.
+2. Execute `stanhl::stanhl_init()` in an R chunk at the top of your file (or
+   *at least* before any stan code).
 
-## Using `stanhl` in LaTeX (Rnw) files
-
-There are two steps:
-
-1. Include the following in your LaTeX header:
-
-        \usepackage{fancyvrb}
-        \usepackage{color}
-
-        <<echo=FALSE,results='asis'>>=
-        library(stanhl)
-        stanhl_latex()
-        @
-
-2. Write your Stan model, store it to a variable (e.g. to call with
-`stan(model_code=x, ...`), and then use:
-
-        <<echo=FALSE,results='asis'>>=
-        m <- "
-		data {
-		  // stan stuff
-        }
-		model {
-		  // more stan stuff
-		}
-        "
-        stanhl(m)
-
-        @
-
-Then, in another block call `stan()`, do other stuff, etc.
-
-## Using `stanhl` in RMarkdown files
-
-![A screenshot of stanhl syntax highlighting in an HTML document](https://raw.githubusercontent.com/vsbuffalo/stanhl/master/inst/extdata/example_html.png)
-
-I haven't extensively tested Markdown support (swamped for the next few weeks),
-but `stanhl_html()` should work as a replacement for `stanhl_latex()`. If it
-doesn't, feel free to submit a pull request. Below is the basic idea.
-
-The header:
-
-    ```{r,echo=FALSE,results='asis'}
-    library(stanhl)
-    stanhl_html()
-    ```
-
-The meat and potatoes (or tofu and eggplant):
-
-    ```{r,echo=FALSE,results='asis'}
-    m <- "
-    data {
-      int<lower=0> N;
-      vector[N] weight;
-      vector[N] diam1;
-      vector[N] diam2;
-      vector[N] canopy_height;
-    }
-    transformed data {
-      vector[N] log_weight;
-      vector[N] log_canopy_volume;
-      log_weight        <- log(weight);
-      log_canopy_volume <- log(diam1 .* diam2 .* canopy_height);
-    }
-    parameters {
-      vector[2] beta;
-      real<lower=0> sigma;
-    }
-    model {
-      log_weight ~ normal(beta[1] + beta[2] * log_canopy_volume, sigma);
-    }
-    "
-    stanhl(m)
-
-    ```
-
-## Highlighting Stan Models from File
-
-You can also highlight a model directly from a `.stan` file:
-
-    mesquite_file <- system.file("inst", "extdata", "mesquite_volume.stan",
-                                 package="stanhl")
-    stanhl_file(mesquite_file)
-
-	# Then run your Stan model directly from file with something like:
-	# fit <- stan(mesquite_file, data=mesquite_data)
-
-## Styles
-
-You can change Pygments [style](http://pygments.org/docs/styles/) used in syntax
-highlighting with:
-
-     > stanhl_styles() # get available style list (depends on Pygments plugins)
-     [1] "monokai"  "manni"    "rrt"      "perldoc"  "borland"  "colorful"
-     [7] "default"  "murphy"   "vs"       "trac"     "tango"    "fruity"
-    [13] "autumn"   "bw"       "emacs"    "vim"      "pastie"   "friendly"
-    [19] "native"
-    > stanhl_opts$set(style="emacs")
-
-See the vignette for these styles rendered.
-
-## Todo
-
-I interfaced Pygments with R to create syntax highlighting for Stan, but
-afterwards thought it might be useful to have a more general R-Pygments
-interface. This interface is now the
-[pygmentr](https://github.com/vsbuffalo/pygmentr) package; I am debating
-whether to merge these two together, or just keep stanhl separate. For now,
-there are some Stan-specific features I want, e.g. including Stan models from
-file, so this package is worth it.
-
+3. Add stan code which you wish to highlight to ```stan``` chunks.
+---

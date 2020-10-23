@@ -1,78 +1,81 @@
-has_pygments <- function() {
-  exit_status <- system("pygmentize -V", ignore.stdout=TRUE, ignore.stderr=TRUE)
+#' Set up for highlighting Stan in LaTeX
+#'
+#' @export
+stanhl_init = function() {
+  has_pygments()
+  make_header()
+  add_stan_hook()
+  knitr::raw_latex("\\input{highlight.tex}")
+}
+
+
+#' Check that pygments is installed.
+has_pygments = function() {
+  exit_status = system2("pygmentize", c("-V"), stdout = FALSE)
   if (exit_status != 0)
     stop("Pygments 'pygmentize' not found - have you installed Pygments?")
   invisible(exit_status == 0)
 }
 
-#' Setup Stan syntax highlighting for LaTeX files
-#'
-#' @export
-stanhl_latex <- function() {
+
+#' Set up commands for highlighting Stan in LaTeX.
+make_header = function() {
   has_pygments()
-  stanhl_opts$set(formatter="latex")
-  set_header(highlight = .header.hi.html)
-  cat(get_header("latex"))
+  style = stanhl_opts$get("style")
+  # Define Shaded
+
+  cat(c("\\definecolor{shadecolor}{RGB}{248,248,248}",
+        "\\ifcsmacro{Shaded}{}{\\newenvironment{Shaded}{\\begin{snugshade}}{\\end{snugshade}}}"),
+      sep = "\n",
+      file = "highlight.tex")
+  # Add highlight commands
+  cat(system2('pygmentize',
+              args = c('-S', style, '-f', 'latex'),
+              stdout = TRUE),
+      sep = "\n",
+      file = "highlight.tex",
+      append = TRUE)
 }
 
-#' Setup Stan syntax highlighting for HTML files
-#'
-#' @export
-stanhl_html <- function() {
+#' Add knitr hook to add highlighting to stan chunks.
+add_stan_hook = function() {
+  hook_output = knitr::knit_hooks$get("source")
+  knitr::knit_hooks$set(source = function(x, options) {
+    if (options$engine == 'stan') {
+      # Apply syntax highlighting
+      hlighted = stanhl(x)
+      # Wrap in shaded enviornment
+      paste('\\begin{Shaded}', hlighted, '\\end{Shaded}', sep = "\n")
+    } else {
+      hook_output(x, options)
+    }
+  })
+}
+
+#' Use pygements to highlight Stan model code.
+stanhl = function(x) {
   has_pygments()
-  stanhl_opts$set(formatter="html")
-  style_tmp = '
-<style type="text/css">
-/* automatically generated with Pygments */
-%s
-</style>'
-  cat(sprintf(style_tmp, get_header("html")))
+  paste(system2('pygmentize',
+                args = c('-f', 'latex', '-l', 'stan'),
+                input = x,
+                stdout = TRUE),
+        collapse = '\n')
 }
 
 
-#' Create Stan highlight header for LaTeX or HTML
-#'
-#' @param formatter Pygments formatter to use; either "latex" or "html".
-get_header <- function(formatter=c("latex", "html")) {
-  has_pygments()
-  formatter <- match.arg(formatter)
-  style <- stanhl_opts$get("style")
-  pipe_in(cmd=sprintf('pygmentize -S "%s" -f "%s"', style, formatter))
-}
-
-
-#' Highlight Stan model code
-#'
-#' Uses Python Pygements to highly Stan model code.
-#'
-#' @param x character model specification.
-#'
-#' @export
-stanhl <- function(x) {
-  has_pygments()
-  formatter <- stanhl_opts$get("formatter")
-  cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan', formatter),
-              input=x))
-}
-
-#' Highlight Stan model code from file
-#'
-#' Uses Python Pygements to highly Stan model code from a file.
+#' Use Python Pygements to highlight Stan model code from a file.
 #'
 #' @param file a filename to a Stan model
 #'
 #' @export
-stanhl_file <- function(file) {
+stanhl_file = function(file) {
+
   if (!is.character(file) || length(file) > 1)
       stop("file must be a single string filename.")
+
   has_pygments()
-  formatter <- stanhl_opts$get("formatter")
-  cat(pipe_in(cmd=sprintf('pygmentize -f "%s" -l stan "%s"', formatter, file)))
+  cat(system2('pygmentize',
+              args = c('-f', 'latex', '-l', 'stan', file),
+              stdout = TRUE),
+      sep = "\n")
 }
-
-
-
-
-
-
-

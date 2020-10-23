@@ -1,9 +1,10 @@
 Package: stanhl
 Title: Highlight Stan models using Python Pygments
 Version: 0.1.0
-Authors@R: 'Vince Buffalo <vsbuffaloAAAAA@gmail.com> [aut, cre]'
+Authors@R: 'Jumping Rivers <info@jumpingrivers.com> [aut, cre]'
 Description: Uses Pygments to highly Stan model code in LaTeX or HTML
 Depends: R (>= 3.1.2)
 License: BSD
 LazyData: true
-Collate: stanhl-package.R utils.R defaults.R highlight.R zzz.R
+Collate: stanhl-package.R defaults.R highlight.R zzz.R
+RoxygenNote: 7.1.1

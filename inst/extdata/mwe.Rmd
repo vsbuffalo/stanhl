@@ -1,0 +1,51 @@
+---
+title: "Adventures of a Mathematician"
+author: "Stanislaw Ulam"
+date: "`r Sys.Date()`"
+output:
+  bookdown::tufte_book2:
+    extra_dependencies: ["fancyvrb", "framed", "etoolbox"]
+    keep_tex: true
+    highlight: tango
+---
+
+# Example highlighted Stan model using `stanhl`
+
+```{r echo = FALSE, results = 'asis'}
+library(stanhl)
+library(knitr)
+stanhl_init()
+```
+
+```{stan output.var = "stan1", cache = TRUE}
+data {
+  int<lower=1> K;           // No. columns in design matrix
+  int<lower=1> N;           // Sample size
+  matrix[N, K] X;           // Design matrix
+  vector[N] y;              // Response variables
+  row_vector[K] x_pred;     // Design matrix for prediction
+  real m_beta[K];           // Prior means for beta[k]
+  real m_sigma_sq;          // Prior mean for log(sigma_sq)
+  real<lower=0> s_beta[K];  // Prior std. devs for beta[k]
+  real<lower=0> s_sigma_sq; // Prior std. dev for log(sigma_sq)
+}
+parameters {
+  real<lower=0> sigma_sq;
+  vector[K] beta;
+}
+model {
+  // Likelihood:
+  for (n in 1:N) {
+    real eta = 0;
+    for (k in 1:K) {
+      eta = eta + X[n, k] * beta[k];
+    }
+    y[n] ~ normal(eta, sqrt(sigma_sq));
+  }
+  // Prior:
+  for (k in 1:K) {
+    beta[k] ~ normal(m_beta[k], s_beta[k]);
+  }
+  sigma_sq ~ lognormal(m_sigma_sq, s_sigma_sq);
+}
+```
