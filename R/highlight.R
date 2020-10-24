@@ -1,27 +1,15 @@
-#' Set up for highlighting Stan in LaTeX
-#'
-#' @export
-stanhl_init <- function() {
-  has_pygments()
-  make_header()
-  add_stan_hook()
-  knitr::raw_latex("\\input{highlight.tex}")
-}
-
-
 #' Check that pygments is installed.
-has_pygments <- function() {
-  exit_status <- system2("pygmentize", c("-V"), stdout = FALSE)
+has_pygments = function() {
+  exit_status = system2("pygmentize", "-V", stdout = FALSE)
   if (exit_status != 0)
     stop("Pygments 'pygmentize' not found - have you installed Pygments?")
-  invisible(exit_status == 0)
+  invisible(invisible(TRUE))
 }
 
-
 #' Set up commands for highlighting Stan in LaTeX.
-make_header <- function() {
+make_header = function() {
   has_pygments()
-  style <- stanhl_opts$get("style")
+  style = stanhl_opts$get("style")
   # Define Shaded
 
   cat(c("\\definecolor{shadecolor}{RGB}{248,248,248}",
@@ -38,12 +26,11 @@ make_header <- function() {
       append = TRUE)
 }
 
-
 #' Add knitr hook to add highlighting to stan chunks.
 #'
 #' @importFrom knitr knit_hooks
-add_stan_hook <- function() {
-  hook_output <- knitr::knit_hooks$get("source")
+add_stan_hook = function() {
+  hook_output = knitr::knit_hooks$get("source")
   knitr::knit_hooks$set(source = function(x, options) {
     if (options$engine == "stan") {
       # Apply syntax highlighting
@@ -60,10 +47,21 @@ add_stan_hook <- function() {
 }
 
 
+#' Set up for highlighting Stan in LaTeX
+#'
+#' @export
+stanhl_init = function() {
+  has_pygments()
+  make_header()
+  add_stan_hook()
+  knitr::raw_latex("\\input{highlight.tex}")
+}
+
+
 #' Use pygements to highlight Stan model code.
 #'
 #' @param x stan code to highlight
-stanhl <- function(x) {
+stanhl = function(x) {
   has_pygments()
   paste(system2("pygmentize",
                 args = c("-f", "latex", "-l", "stan"),

@@ -1,19 +1,22 @@
 Type: Package
 Package: stanhl
 Title: Highlight Stan models using Python Pygments
-Version: 1.0.0
+Version: 1.0.1
 Authors@R:
-    person(given = "Jumping",
-           family = "Rivers",
-           role = c("aut", "cre"),
-           email = "info@jumpingrivers.com")
+    c(person(given = "Jumping",
+             family = "Rivers",
+             role = c("aut", "cre"),
+             email = "info@jumpingrivers.com"),
+      person(given = "Vince",
+             family = "Buffalo",
+             role = "aut",
+             email = "vsbuffaloAAAAA@gmail.com"))
 Description: Use Pygments to highlight Stan model code in LaTeX.
 License: GPL-3
 URL: https://www.jumpingrivers.com/
 Depends:
     R (>= 3.5.0)
 Imports:
-    glue,
     knitr
 VignetteBuilder: 
     knitr
