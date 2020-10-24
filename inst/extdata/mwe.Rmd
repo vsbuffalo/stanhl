@@ -3,31 +3,36 @@ title: "Adventures of a Mathematician"
 author: "Stanislaw Ulam"
 date: "`r Sys.Date()`"
 output:
-  bookdown::tufte_book2:
+  pdf_document:
     extra_dependencies: ["fancyvrb", "framed", "etoolbox"]
-    keep_tex: true
-    highlight: tango
 ---
 
-# Example highlighted Stan model using `stanhl`
+# Stan model highlighted using `stanhl`
 
-```{r echo = FALSE, results = 'asis'}
-library(stanhl)
-library(knitr)
-stanhl_init()
+```{r echo=FALSE, results='asis'}
+stanhl::stanhl_init()
 ```
 
-```{stan output.var = "stan1", cache = TRUE}
+```{stan output.var="stan1", cache=TRUE}
 data {
-  int<lower=1> K;           // No. columns in design matrix
-  int<lower=1> N;           // Sample size
-  matrix[N, K] X;           // Design matrix
-  vector[N] y;              // Response variables
-  row_vector[K] x_pred;     // Design matrix for prediction
-  real m_beta[K];           // Prior means for beta[k]
-  real m_sigma_sq;          // Prior mean for log(sigma_sq)
-  real<lower=0> s_beta[K];  // Prior std. devs for beta[k]
-  real<lower=0> s_sigma_sq; // Prior std. dev for log(sigma_sq)
+  // No. columns in design matrix
+  int<lower=1> K;
+  // Sample size
+  int<lower=1> N;
+  // Design matrix
+  matrix[N, K] X;
+  // Response variables
+  vector[N] y;
+  // Design matrix for prediction
+  row_vector[K] x_pred;
+  // Prior means for beta[k]
+  real m_beta[K];
+  // Prior mean for log(sigma_sq)
+  real m_sigma_sq;
+  // Prior std. devs for beta[k]
+  real<lower=0> s_beta[K];
+  // Prior std. dev for log(sigma_sq)
+  real<lower=0> s_sigma_sq;
 }
 parameters {
   real<lower=0> sigma_sq;
