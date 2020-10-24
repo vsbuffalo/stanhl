@@ -1,10 +1,22 @@
+Type: Package
 Package: stanhl
 Title: Highlight Stan models using Python Pygments
-Version: 0.1.0
-Authors@R: 'Jumping Rivers <info@jumpingrivers.com> [aut, cre]'
-Description: Uses Pygments to highly Stan model code in LaTeX or HTML
-Depends: R (>= 3.1.2)
-License: BSD
-LazyData: true
-Collate: stanhl-package.R defaults.R highlight.R zzz.R
+Version: 1.0.0
+Authors@R:
+    person(given = "Jumping",
+           family = "Rivers",
+           role = c("aut", "cre"),
+           email = "info@jumpingrivers.com")
+Description: Use Pygments to highlight Stan model code in LaTeX.
+License: GPL-3
+URL: https://www.jumpingrivers.com/
+Depends:
+    R (>= 3.5.0)
+Imports:
+    glue,
+    knitr
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

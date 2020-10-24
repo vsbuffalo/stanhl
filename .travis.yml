@@ -1,0 +1,48 @@
+language: r
+dist: bionic
+cache: packages
+
+# Per package values
+env:
+  global:
+    - ALLOWED_NOTES=1
+    - NO_IMPORTS=0
+
+# Generic
+notifications:
+  email:
+    recipients:
+     - alerts+travis@jumpingrivers.support
+    on_success: change
+    on_failure: change
+
+# Generic + Bespoke
+# 1. Only needed for jrNotes
+# 2. Rcpp bugs. On next update of Rcpp CRAN, delete line 2
+before_install: |
+  sudo apt-get install python3
+  sudo apt-get install python3-pip
+  sudo apt-get install libgit2-dev
+  pip3 install pygments
+  Rscript -e 'if (!requireNamespace("Rcpp", quietly = TRUE)) install.packages("Rcpp")'
+
+  wget https://raw.githubusercontent.com/jr-packages/drat/master/options.R &&
+  cat options.R >> ~/.Rprofile.site &&
+  rm options.R
+
+# Generic
+before_script:
+  - wget https://raw.githubusercontent.com/jr-packages/drat/master/test_deploy.sh
+  - if [ ${TRAVIS_PULL_REQUEST} = "false" ] && [ $TRAVIS_BRANCH = "master" ]; then bash test_deploy.sh; fi
+  - rm test_deploy.sh
+
+# Generic
+script:
+  - Rscript -e "source('https://raw.githubusercontent.com/jr-packages/drat/master/script.R')"
+
+# Generic
+# May delete line depending on testing
+after_success:
+  - wget https://raw.githubusercontent.com/jr-packages/drat/master/deploy.sh
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && Rscript -e 'covr::codecov()'
