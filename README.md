@@ -1,5 +1,8 @@
 # Stanhl - Stan syntax highlighting in RMarkdown
 
+<!-- badges: start -->
+  [![Travis build status](https://travis-ci.com/jr-packages/stanhl.svg?branch=master)](https://travis-ci.com/jr-packages/stanhl)
+
 ![A screenshot of stanhl syntax highlighting in a LaTeX
 document](https://raw.githubusercontent.com/jr-packages/stanhl/master/inst/extdata/example.png)
 
