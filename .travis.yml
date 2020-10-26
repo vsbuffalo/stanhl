@@ -16,22 +16,26 @@ notifications:
     on_success: change
     on_failure: change
 
+r_binary_packages:
+  - rstan
+
+apt_packages:
+  - libnode-dev
+  - python3
+  - python3-pip
+ 
 # Generic + Bespoke
 # 1. Only needed for jrNotes
 # 2. Rcpp bugs. On next update of Rcpp CRAN, delete line 2
 before_install: |
-  sudo apt-get install python3
-  sudo apt-get install python3-pip
-  sudo apt-get install libgit2-dev
-  pip3 install pygments
   Rscript -e 'if (!requireNamespace("Rcpp", quietly = TRUE)) install.packages("Rcpp")'
-
   wget https://raw.githubusercontent.com/jr-packages/drat/master/options.R &&
   cat options.R >> ~/.Rprofile.site &&
   rm options.R
 
 # Generic
 before_script:
+  - pip3 install pygments
   - wget https://raw.githubusercontent.com/jr-packages/drat/master/test_deploy.sh
   - if [ ${TRAVIS_PULL_REQUEST} = "false" ] && [ $TRAVIS_BRANCH = "master" ]; then bash test_deploy.sh; fi
   - rm test_deploy.sh
@@ -39,6 +43,7 @@ before_script:
 # Generic
 script:
   - Rscript -e "source('https://raw.githubusercontent.com/jr-packages/drat/master/script.R')"
+  - Rscript -e "rmarkdown::render('inst/extdata/mwe.Rmd')"
 
 # Generic
 # May delete line depending on testing

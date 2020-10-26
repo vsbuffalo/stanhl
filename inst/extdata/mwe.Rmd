@@ -4,7 +4,7 @@ author: "Stanislaw Ulam"
 date: "`r Sys.Date()`"
 output:
   pdf_document:
-    extra_dependencies: ["fancyvrb", "framed", "etoolbox"]
+    extra_dependencies: ["fancyvrb", "framed", "etoolbox", "xcolor"]
 ---
 
 # Stan model highlighted using `stanhl`

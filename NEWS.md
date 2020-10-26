@@ -1,3 +1,6 @@
+# stanhl 1.0.2 _2020-10-26_
+  * Internal: Add {rmarkdown} and {testthat} under Suggests
+
 # stanhl 1.0.1 _2020-10-24_
   * Internal: Remove {glue} as a dependency
   * Tidy up code

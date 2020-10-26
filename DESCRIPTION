@@ -1,7 +1,7 @@
 Type: Package
 Package: stanhl
 Title: Highlight Stan models using Python Pygments
-Version: 1.0.1
+Version: 1.0.2
 Authors@R:
     c(person(given = "Jumping",
              family = "Rivers",
@@ -18,6 +18,9 @@ Depends:
     R (>= 3.5.0)
 Imports:
     knitr
+Suggests:
+    rmarkdown,
+    rstan
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
