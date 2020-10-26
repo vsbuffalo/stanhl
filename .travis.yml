@@ -40,6 +40,13 @@ before_script:
 script:
   - Rscript -e "source('https://raw.githubusercontent.com/jr-packages/drat/master/script.R')"
 
+# Check build of minimum working example
+mwe-build:
+  stage: check
+  script:
+    - Rscript -e "rmarkdown::render('inst/extdata/mwe.Rmd')"
+    - cd $CI_PROJECT_DIR/notes && make final && cd final
+
 # Generic
 # May delete line depending on testing
 after_success:
